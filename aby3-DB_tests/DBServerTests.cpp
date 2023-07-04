@@ -1,6 +1,6 @@
 
-#include "aby3-DB/DBServer.h"
-#include <cryptoTools/Network/IOService.h>
+// #include "aby3-DB/DBServer.h"
+#include "cryptoTools/Network/IOService.h"
 #include "DBServerTests.h"
 #include <unordered_map>
 #include <iomanip>
@@ -299,7 +299,7 @@ void DB_compare_test()
         C.mColumns[0].mName     = B.mColumns[0].mName;
         C.mColumns[0].mType     = B.mColumns[0].mType;
         C.mColumns[0].mBitCount = B.mColumns[0].mBitCount;
-        
+
         C.mColumns[1].mShares   = B.mColumns[1].mShares;
         C.mColumns[1].mName     = B.mColumns[1].mName;
         C.mColumns[1].mType     = B.mColumns[1].mType;
@@ -390,7 +390,7 @@ void DB_compare_test()
             for (u64 j = 0; j < rows; ++j)
             {
 
-                //o << "out[" << j << "] = " 
+                //o << "out[" << j << "] = "
                 //    << hexString((u8*)c0.row(j).data(), c0.cols() * sizeof(u64)) << " "
                 //    << hexString((u8*)c1.row(j).data(), c1.cols() * sizeof(u64)) << " " << int(*iter) << std::endl;;
 
@@ -667,7 +667,7 @@ void DB_leftUnion_test()
     auto right = 1 << 7;
 
     auto keyBitCount = srvs[0].mKeyBitCount;
-    Table 
+    Table
         a(left + mid, {
             ColumnInfo{ "key", TypeID::IntID, keyBitCount }
             ,ColumnInfo{ "data", TypeID::IntID, 64 }
@@ -762,7 +762,7 @@ void DB_leftUnion_test()
             }
             else
             {
-    
+
                 auto idx = iter->second;
                 auto exp = idx < th0 ?  b.mColumns[1].mData(idx, 0) : a.mColumns[1].mData(idx - right, 0);
 

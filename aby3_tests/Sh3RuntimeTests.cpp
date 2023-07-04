@@ -1,10 +1,10 @@
 #include "Sh3RuntimeTests.h"
-#include <aby3/sh3/Sh3Runtime.h>
+#include "aby3/sh3/Sh3Runtime.h"
 
 // testing and command line parsing
-#include <tests_cryptoTools/UnitTests.h>
+#include "tests_cryptoTools/UnitTests.h"
 // convenience function
-#include <cryptoTools/Network/IOService.h>
+#include "cryptoTools/Network/IOService.h"
 #include "aby3/sh3/Sh3Runtime.h"
 #include "aby3/sh3/Sh3Encryptor.h"
 #include "aby3/sh3/Sh3Evaluator.h"
@@ -197,7 +197,7 @@ void Sh3_Runtime_schedule_test(const CLP& cmd)
 		}
 	, "task2");
 
-	task2.then([&](Sh3Task self) 
+	task2.then([&](Sh3Task self)
 		{
 			if (counter++ != 4)
 				throw RTE_LOC;
@@ -211,7 +211,7 @@ void Sh3_Runtime_schedule_test(const CLP& cmd)
 		}
 	, "task3");
 
-	task2.get();	
+	task2.get();
 
 	if (counter++ != 3)
 		throw RTE_LOC;

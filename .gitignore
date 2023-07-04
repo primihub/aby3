@@ -8,11 +8,10 @@
 *.synctex
 *.pdf
 *.dvi
-
+bazel-*
 /thirdparty/
 /lib/
 /bin/
-Makefile
 */CMakeFiles/
 /CMakeFiles/
 *.cmake

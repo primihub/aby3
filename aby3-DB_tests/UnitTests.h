@@ -1,5 +1,5 @@
 #pragma once
-#include <cryptoTools/Common/TestCollection.h>
+#include "cryptoTools/Common/TestCollection.h"
 
 #include "LowMC.h"
 #include "DBServerTests.h"

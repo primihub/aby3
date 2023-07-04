@@ -1,6 +1,6 @@
 #include "OblvPermutation.h"
-#include <cryptoTools/Crypto/PRNG.h>
-#include <cryptoTools/Common/Matrix.h>
+#include "cryptoTools/Crypto/PRNG.h"
+#include "cryptoTools/Common/Matrix.h"
 #include <unordered_set>
 namespace osuCrypto
 {
@@ -78,7 +78,7 @@ namespace osuCrypto
                 // consume how many bytes are currently buffered in the PRNG.
                 auto buffer = prng2.getBufferSpan(size - k);
 
-                // XOR those over the data. 
+                // XOR those over the data.
                 for (u64 m = 0; m < buffer.size(); ++m, ++k)
                 {
                     data[k] ^= buffer[m];

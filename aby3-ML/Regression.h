@@ -4,11 +4,11 @@
 #include <math.h>
 #include <vector>
 #include <algorithm>
-#include <Eigen/Dense>
-#include <cryptoTools/Crypto/PRNG.h>
-#include <cryptoTools/Common/Log.h>
+#include "Eigen/Dense"
+#include "cryptoTools/Crypto/PRNG.h"
+#include "cryptoTools/Common/Log.h"
 //#include "Engines/Lynx/LynxDefines.h"
-#include <aby3/sh3/Sh3FixedPoint.h>
+#include "aby3/sh3/Sh3FixedPoint.h"
 using namespace oc;
 
 #define DEBUG_PRINT(x)
@@ -172,7 +172,7 @@ void SGD_Linear(
 
 		if (X_test && i % 1000 == 0)
 		{
-			//engine.sync(); 
+			//engine.sync();
 			auto now = std::chrono::system_clock::now();
 			auto dur = std::chrono::duration_cast<std::chrono::milliseconds>(now - start).count();
 			auto score = test_linearModel(engine, w, *X_test, *Y_test);
@@ -253,7 +253,9 @@ void SGD_Logistic(
 		XX.resize(params.mBatchSize, X.cols());
 		// extract the rows indexed by batchIndices and store them in XX, YY.
 		extractBatch(XX, YY, X, Y, batchIndices);
-
+    std::cout << "X[" << i << "] " << engine.reveal(XX) << std::endl;
+    std::cout << "Y[" << i << "] " << engine.reveal(YY) << std::endl;
+    std::cout << "W[" << i << "] " << engine.reveal(w) << std::endl;
 		DEBUG_PRINT(engine << "X[" << i << "] " << engine.reveal(XX) << std::endl);
 		DEBUG_PRINT(engine << "Y[" << i << "] " << engine.reveal(YY) << std::endl);
 		DEBUG_PRINT(engine << "W[" << i << "] " << engine.reveal(w) << std::endl);

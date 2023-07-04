@@ -1,6 +1,6 @@
 #pragma once
 #include "Sh3Types.h"
-#include <cryptoTools/Crypto/PRNG.h>
+#include "cryptoTools/Crypto/PRNG.h"
 
 namespace aby3
 {

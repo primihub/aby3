@@ -1,5 +1,5 @@
 #include "Sh3Runtime.h"
-#include <cryptoTools/Common/Log.h>
+#include "cryptoTools/Common/Log.h"
 #include <sstream>
 
 namespace aby3
@@ -63,7 +63,7 @@ namespace aby3
 		return iter == mRuntime->mSched.mTasks.end();
 		//auto taskPtr = basePtr();
 		//return taskPtr == nullptr;
-			
+
 	}
 
 	Sh3TaskBase* Sh3Task::basePtr()
@@ -76,7 +76,7 @@ namespace aby3
 
 	Sh3Task Sh3Runtime::addTask(
 		span<Sh3Task> deps,
-		Sh3Task::RoundFunc&& func, 
+		Sh3Task::RoundFunc&& func,
 		std::string&& name)
 	{
 		if (func)
@@ -129,7 +129,7 @@ namespace aby3
 			throw RTE_LOC;
 		}
 	}
-	
+
 	Sh3Task Sh3Runtime::addClosure(Sh3Task dep)
 	{
 		Task dd;
@@ -293,7 +293,7 @@ namespace aby3
 			(*roundFuncPtr)(mComm, t);
 		else if (continueFuncPtr)
 			(*continueFuncPtr)(t);
-		
+
 		mIsActive = false;
 
 
@@ -352,7 +352,7 @@ namespace aby3
 
 	//	if (rt.mPrint)
 	//	{
-	//		oc::lout << "dep fulfill " << mIdx << " " << mName << " to " << mDepCount << "   by   " 
+	//		oc::lout << "dep fulfill " << mIdx << " " << mName << " to " << mDepCount << "   by   "
 	//			<< parent << " " << rt.mTasks.get(parent.mIdx).mName  << std::endl;
 	//	}
 
@@ -386,7 +386,7 @@ namespace aby3
 	//					rt.removeClosure(closure);
 	//			}
 
-	//			for (auto childIdx : mChildren) 
+	//			for (auto childIdx : mChildren)
 	//				rt.mTasks.get(childIdx).depFulfilled(dep, rt);
 
 

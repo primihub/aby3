@@ -1,8 +1,8 @@
 #pragma once
 #include <vector>
 
-#include <Eigen/Dense>
-#include <cryptoTools/Crypto/PRNG.h>
+#include "Eigen/Dense"
+#include "cryptoTools/Crypto/PRNG.h"
 
 class NeuralModelGen
 {

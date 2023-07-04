@@ -1,7 +1,7 @@
 #include "aby3-DB/LowMC.h"
 #include <iostream>
-#include <cryptoTools/Common/Timer.h>
-#include <cryptoTools/Common/TestCollection.h>
+#include "cryptoTools/Common/Timer.h"
+#include "cryptoTools/Common/TestCollection.h"
 #include <cstdio>
 //////////////////
 //     MAIN     //
@@ -139,9 +139,9 @@ void lowMC_FileCircuit_test() {
         {
             if (cipher1.LinMatrices[i] != cipher2.LinMatrices[i])
             {
-                std::cout << i << " \n" 
-                    << vectorPrint<LowMC2<>::block>{ cipher1.LinMatrices[i] } 
-                    << "\n != \n" 
+                std::cout << i << " \n"
+                    << vectorPrint<LowMC2<>::block>{ cipher1.LinMatrices[i] }
+                    << "\n != \n"
                         << cipher2.LinMatrices[i][0] << std::endl;
 
                 throw std::runtime_error(LOCATION);

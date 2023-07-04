@@ -3,12 +3,14 @@
 #define _ENABLE_EXTENDED_ALIGNED_STORAGE
 
 #include "Sh3BinaryEvaluator.h"
-#include <cryptoTools/Common/Matrix.h>
-#include <cryptoTools/Common/Log.h>
-#include <libOTe/Tools/Tools.h>
-#include <cryptoTools/Crypto/RandomOracle.h>
+#include "cryptoTools/Common/Matrix.h"
+#include "cryptoTools/Common/Log.h"
+#include "libOTe/Tools/Tools.h"
+#include "cryptoTools/Crypto/RandomOracle.h"
 #include "Sh3Converter.h"
+#ifdef ENABLE_SSE
 #include <immintrin.h>
+#endif
 #include <iomanip>
 
 //std::ostream& operator<<(std::ostream& out, const __m256i& block);
@@ -16,7 +18,7 @@
 //{
 //    using ::operator<<;
 //}
-
+#ifdef ENABLE_SSE
 inline bool eq(const __m256i& lhs, const __m256i& rhs)
 {
     std::array<char, 32> ll, rr;
@@ -43,6 +45,7 @@ inline __m256i operator&(const __m256i& lhs, const __m256i& rhs)
     return _mm256_and_si256(lhs, rhs);
 }
 
+#endif
 #endif
 
 #undef NDEBUG
@@ -161,13 +164,13 @@ namespace aby3
             ss << "...";
         return ss.str();
     }
-
+#ifdef ENABLE_SSE
     std::string hex(span<__m256i> view, u64 len = ~0ull)
     {
         span<u8> vv((u8*)view.data(), view.size() * sizeof(__m256i));
         return hex(vv, len);
     }
-
+#endif
 
     std::string hex(span<block> view, u64 len = ~0ull)
     {
@@ -716,13 +719,13 @@ namespace aby3
             for (u64 j = 0; j < 2; ++j)
             {
                 auto x = mMem.mShares[1][in[0]].data();
-                
+
                 if (eq32(x, &mCheckBlock))
                 {
                     mLog << j << " at lvl " << mLevel << " gate " << (mGateIter - mCir->mGates.begin())
                         << " " << gateToString(gate.mType) << " (" << gate.mInput[0] << "," << gate.mInput[1] << " ) -> " << gate.mOutput << std::endl;
-                    mLog << " =    " << hex({ x,1 }, 100) << std::endl;
-                    mLog << " cc = " << hex({ &mCheckBlock, 1 }) << std::endl;
+                    // TODO mLog << " =    " << hex({ x,1 }, 100) << std::endl;
+                    // TODO mLog << " cc = " << hex({ &mCheckBlock, 1 }) << std::endl;
 
 
                     oc::lout << mLog.str() << std::endl;

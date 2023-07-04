@@ -12,8 +12,8 @@
 #include <algorithm>
 
 
-#include <aby3/Circuit/CircuitLibrary.h>
-#include <cryptoTools/Crypto/PRNG.h>
+#include "aby3/Circuit/CircuitLibrary.h"
+#include "cryptoTools/Crypto/PRNG.h"
 
 namespace osuCrypto
 {
@@ -289,7 +289,7 @@ namespace osuCrypto
             //private:
                 // LowMC2 private data members //
 
-                // The Sbox and its inverse    
+                // The Sbox and its inverse
             const std::array<u8, 8> Sbox =
             { { 0x00, 0x01, 0x03, 0x06, 0x07, 0x04, 0x05, 0x02 } };
             const std::array<u8, 8> invSbox =
@@ -408,7 +408,7 @@ namespace osuCrypto
 
 
 
-            //Fills the matrices and roundconstants with pseudorandom bits 
+            //Fills the matrices and roundconstants with pseudorandom bits
             void instantiate_LowMC(bool invertable)
             {
                 oc::PRNG prng(oc::ZeroBlock);
@@ -576,7 +576,7 @@ namespace osuCrypto
     };
 
 
-    // Binary matrix functions //   
+    // Binary matrix functions //
 
     template<typename block_type>
     std::vector<block_type> invert_Matrix(const std::vector<block_type> matrix)

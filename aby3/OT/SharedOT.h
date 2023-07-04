@@ -1,7 +1,7 @@
 #pragma once
-#include <cryptoTools/Network/Channel.h>
-#include <cryptoTools/Common/Defines.h>
-#include <cryptoTools/Common/BitVector.h>
+#include "cryptoTools/Network/Channel.h"
+#include "cryptoTools/Common/Defines.h"
+#include "cryptoTools/Common/BitVector.h"
 
 class SharedOT
 {

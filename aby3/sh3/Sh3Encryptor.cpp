@@ -1,5 +1,5 @@
 #include "Sh3Encryptor.h"
-#include <libOTe/Tools/Tools.h>
+#include "libOTe/Tools/Tools.h"
 
 #include "cryptoTools/Common/Log.h"
 namespace aby3
@@ -535,7 +535,7 @@ namespace aby3
 
     Sh3Task Sh3Encryptor::reveal(Sh3Task dep, u64 partyIdx, const sPackedBin& A)
     {
-        //TODO("decide if we can move the if outside the call to then(...)"); 
+        //TODO("decide if we can move the if outside the call to then(...)");
         bool send = (mPartyIdx + 2) % 3 == partyIdx;
         return dep.then([send, &A](CommPkg& comm, Sh3Task& self) {
             if (send)

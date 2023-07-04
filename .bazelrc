@@ -1,0 +1,15 @@
+# Linux
+build:x86_64 --cxxopt=-std=c++17
+build:x86_64 --copt=-w
+build:x86_64 --copt=-DENABLE_SSE
+build:x86_64 --copt=-maes
+build:x86_64 --copt=-msse2
+build:x86_64 --copt=-msse3
+build:x86_64 --copt=-msse4.1
+build:x86_64 --copt=-mpclmul
+build:x86_64 --define cpu_arch=x86_64
+
+# aarch64 or arm
+build:aarch64 --cxxopt=-std=c++14
+build:aarch64 --copt=-Wc++11-narrowing
+build:aarch64 --copt=-w

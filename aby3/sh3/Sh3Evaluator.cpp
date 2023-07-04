@@ -1,7 +1,7 @@
 #include "Sh3Evaluator.h"
-#include <cryptoTools/Crypto/PRNG.h>
+#include "cryptoTools/Crypto/PRNG.h"
 #include <iomanip>
-#include <cryptoTools/Common/Log.h>
+#include "cryptoTools/Common/Log.h"
 using namespace oc;
 namespace aby3
 {
@@ -44,9 +44,9 @@ namespace aby3
     //}
 
     //CompletionHandle Sh3Evaluator::asyncMul(
-    //    CommPkg& comm, 
-    //    const si64Matrix & A, 
-    //    const si64Matrix & B, 
+    //    CommPkg& comm,
+    //    const si64Matrix & A,
+    //    const si64Matrix & B,
     //    si64Matrix & C)
     //{
     //    C.mShares[0]
@@ -170,14 +170,16 @@ namespace aby3
                 mOtNext.send(comm.mNext, s0);
                 mOtPrev.send(comm.mPrev, s0);
 
-                // share 1: from p1 to p0,p2 
+                // share 1: from p1 to p0,p2
                 mOtPrev.help(comm.mPrev, c1);
 
 
 
                 auto fu1 = comm.mPrev.asyncRecv(c.mShares[0].data(), c.size()).share();
                 i64* dd = c.mShares[1].data();
-                auto fu2 = SharedOT::asyncRecv(comm.mNext, comm.mPrev, std::move(c1), { dd, i64(c.size()) }).share();
+                auto fu2 = SharedOT::asyncRecv(comm.mNext, comm.mPrev,
+                                               std::move(c1),
+                                               { dd, c.size() }).share();
 
                 self.then([
                     fu1 = std::move(fu1),
@@ -214,14 +216,15 @@ namespace aby3
                 // share 0: from p0 to p1,p2
                 mOtNext.help(comm.mNext, c0);
 
-                // share 1: from p1 to p0,p2 
+                // share 1: from p1 to p0,p2
                 mOtNext.send(comm.mNext, s1);
                 mOtPrev.send(comm.mPrev, s1);
 
 
                 // share 0: from p0 to p1,p2
                 i64* dd = c.mShares[0].data();
-                auto fu1 = SharedOT::asyncRecv(comm.mPrev, comm.mNext, std::move(c0), { dd, i64(c.size()) }).share();
+                auto fu1 = SharedOT::asyncRecv(comm.mPrev, comm.mNext, std::move(c0),
+                                               { dd, c.size() }).share();
 
                 // share 1:
                 auto fu2 = comm.mNext.asyncRecv(c.mShares[1].data(), c.size()).share();
@@ -258,17 +261,19 @@ namespace aby3
                 mOtPrev.help(comm.mPrev, c0);
                 comm.mNext.asyncSend(std::move(s0));
 
-                // share 1: from p1 to p0,p2 
+                // share 1: from p1 to p0,p2
                 mOtNext.help(comm.mNext, c1);
                 comm.mPrev.asyncSend(std::move(s1));
 
                 // share 0: from p0 to p1,p2
                 i64* dd0 = c.mShares[1].data();
-                auto fu1 = SharedOT::asyncRecv(comm.mNext, comm.mPrev, std::move(c0), { dd0, i64(c.size()) }).share();
+                auto fu1 = SharedOT::asyncRecv(comm.mNext, comm.mPrev, std::move(c0),
+                                               { dd0, c.size() }).share();
 
                 // share 1: from p1 to p0,p2
                 i64* dd1 = c.mShares[0].data();
-                auto fu2 = SharedOT::asyncRecv(comm.mPrev, comm.mNext, std::move(c1), { dd1, i64(c.size()) }).share();
+                auto fu2 = SharedOT::asyncRecv(comm.mPrev, comm.mNext, std::move(c1),
+                                               { dd1, c.size() }).share();
 
                 self.then([
                     fu1 = std::move(fu1),
@@ -339,7 +344,8 @@ namespace aby3
                 comm.mPrev.asyncSendCopy(c.mShares[1].data(), c.size());
 
                 i64* dd = c.mShares[0].data();
-                auto fu1 = SharedOT::asyncRecv(comm.mPrev, comm.mNext, std::move(c0), { dd, i64(c.size()) }).share();
+                auto fu1 = SharedOT::asyncRecv(comm.mPrev, comm.mNext, std::move(c0),
+                                               { dd, c.size() }).share();
                 self.then([fu1 = std::move(fu1)](CommPkg& _, Sh3Task __) mutable {
                     fu1.get();
                 });
@@ -360,7 +366,8 @@ namespace aby3
                 comm.mNext.asyncSendCopy(c.mShares[0].data(), c.size());
 
                 i64* dd0 = c.mShares[1].data();
-                auto fu1 = SharedOT::asyncRecv(comm.mNext, comm.mPrev, std::move(c0), { dd0, i64(c.size()) }).share();
+                auto fu1 = SharedOT::asyncRecv(comm.mNext, comm.mPrev, std::move(c0),
+                                               { dd0, c.size() }).share();
 
                 self.then([fu1 = std::move(fu1)](CommPkg& _, Sh3Task __) mutable {
                     fu1.get();
@@ -457,7 +464,7 @@ namespace aby3
             //+ mShareGen.getShare();
 
 
-        //oc::ostreamLock(std::cout) << "ab " << mPartyIdx << ": " << abMinusR << " - "<< truncationTuple.mR(0) << 
+        //oc::ostreamLock(std::cout) << "ab " << mPartyIdx << ": " << abMinusR << " - "<< truncationTuple.mR(0) <<
         //	" = " << abMinusR - truncationTuple.mR(0) << std::endl;
 
             abMinusR -= truncationTuple.mR(0);

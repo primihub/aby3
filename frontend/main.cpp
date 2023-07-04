@@ -1,13 +1,12 @@
 
-#include <cryptoTools/Common/CLP.h>
+#include "cryptoTools/Common/CLP.h"
 
 #include "aby3_tests/aby3_tests.h"
-#include "eric.h"
-#include "aby3-DB-main.h"
-#include "aby3-DB_tests/UnitTests.h"
-#include <tests_cryptoTools/UnitTests.h>
-#include <aby3-ML/main-linear.h>
-#include <aby3-ML/main-logistic.h>
+// #include "eric.h"
+// #include "aby3-DB-main.h"
+// #include "aby3-DB_tests/UnitTests.h"
+#include "aby3-ML/main-linear.h"
+#include "aby3-ML/main-logistic.h"
 
 #include "tests_cryptoTools/UnitTests.h"
 #include "cryptoTools/Crypto/PRNG.h"
@@ -44,7 +43,7 @@ int main(int argc, char** argv)
 		{
 			auto tests = tests_cryptoTools::Tests;
 			tests += aby3_tests;
-			tests += DB_tests;
+			// tests += DB_tests;
 
 			tests.runIf(cmd);
 			return 0;
@@ -73,71 +72,71 @@ int main(int argc, char** argv)
 			logistic_main_3pc_sh(cmd);
 		}
 
-		if (cmd.isSet("eric"))
-		{
-			set = true;
+		// if (cmd.isSet("eric"))
+		// {
+		// 	set = true;
 
-			auto nn = cmd.getMany<int>("nn");
-			if (nn.size() == 0)
-				nn.push_back(16);
+		// 	auto nn = cmd.getMany<int>("nn");
+		// 	if (nn.size() == 0)
+		// 		nn.push_back(16);
 
-			for (auto n : nn)
-			{
-				eric(1 << n);
-			}
-		}
-
-
-		if (cmd.isSet("intersect"))
-		{
-			set = true;
-
-			auto nn = cmd.getMany<int>("nn");
-			auto c = cmd.getOr("c", 0);
-			if (nn.size() == 0)
-				nn.push_back(1 << 16);
-
-			for (auto n : nn)
-			{
-				auto size = 1 << n;
-				DB_Intersect(size, c, cmd.isSet("sum"));
-			}
-		}
+		// 	for (auto n : nn)
+		// 	{
+		// 		eric(1 << n);
+		// 	}
+		// }
 
 
-		if (cmd.isSet("threat"))
-		{
-			set = true;
+		// if (cmd.isSet("intersect"))
+		// {
+		// 	set = true;
 
-			auto nn = cmd.getMany<int>("nn");
-			auto c = cmd.getOr("s", 2);
-			if (nn.size() == 0)
-				nn.push_back(1 << 16);
+		// 	auto nn = cmd.getMany<int>("nn");
+		// 	auto c = cmd.getOr("c", 0);
+		// 	if (nn.size() == 0)
+		// 		nn.push_back(1 << 16);
 
-			for (auto n : nn)
-			{
-				auto size = 1 << n;
-				DB_threat(size, c);
-			}
-		}
+		// 	for (auto n : nn)
+		// 	{
+		// 		auto size = 1 << n;
+		// 		DB_Intersect(size, c, cmd.isSet("sum"));
+		// 	}
+		// }
+
+
+		// if (cmd.isSet("threat"))
+		// {
+		// 	set = true;
+
+		// 	auto nn = cmd.getMany<int>("nn");
+		// 	auto c = cmd.getOr("s", 2);
+		// 	if (nn.size() == 0)
+		// 		nn.push_back(1 << 16);
+
+		// 	for (auto n : nn)
+		// 	{
+		// 		auto size = 1 << n;
+		// 		DB_threat(size, c);
+		// 	}
+		// }
 
 
 
-		if (cmd.isSet("card"))
-		{
-			set = true;
+		// if (cmd.isSet("card"))
+		// {
+		// 	set = true;
 
-			auto nn = cmd.getMany<int>("nn");
-			if (nn.size() == 0)
-				nn.push_back(1 << 16);
+		// 	auto nn = cmd.getMany<int>("nn");
+		// 	if (nn.size() == 0)
+		// 		nn.push_back(1 << 16);
 
-			for (auto n : nn)
-			{
-				auto size = 1 << n;
-				DB_cardinality(size);
-			}
-		}
-		
+		// 	for (auto n : nn)
+		// 	{
+		// 		auto size = 1 << n;
+		// 		DB_cardinality(size);
+		// 	}
+		// }
+
 		//if (cmd.isSet("add"))
 		//{
 		//	set = true;

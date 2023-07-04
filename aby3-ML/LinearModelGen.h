@@ -1,8 +1,8 @@
 #pragma once
 #include <vector>
 
-#include <Eigen/Dense>
-#include <aby3/sh3/Sh3Types.h>
+#include "Eigen/Dense"
+#include "aby3/sh3/Sh3Types.h"
 
 namespace aby3
 {

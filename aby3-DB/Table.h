@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cryptoTools/Common/MatrixView.h>
+#include "cryptoTools/Common/MatrixView.h"
 #include "aby3/sh3/Sh3BinaryEvaluator.h"
 #include "aby3/sh3/Sh3Encryptor.h"
 #include "aby3/sh3/Sh3Evaluator.h"
@@ -261,7 +261,7 @@ namespace osuCrypto
         SelectBundle operator<(const SelectBundle& r) const;
         SelectBundle operator*(const SelectBundle& r) const;
         SelectBundle operator+(const SelectBundle& r) const;
-    };                                                
+    };
 
     class SelectQuery
     {
@@ -280,8 +280,8 @@ namespace osuCrypto
         std::vector<selectDetails::Output> mOutputs;
         std::vector<selectDetails::Gate> mGates;
 
-        std::vector<selectDetails::Input*> 
-            mLeftInputs, 
+        std::vector<selectDetails::Input*>
+            mLeftInputs,
             mRightInputs;
 
         //SelectQuery(std::vector<SharedTable::ColRef> passThrough)
@@ -292,7 +292,7 @@ namespace osuCrypto
 
         SelectQuery() = default;
 
-        
+
 
         SelectBundle addInput(SharedTable::ColRef column);
 

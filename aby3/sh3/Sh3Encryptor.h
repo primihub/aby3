@@ -2,7 +2,7 @@
 #include "Sh3Types.h"
 #include "Sh3ShareGen.h"
 #include "Sh3Runtime.h"
-#include <cryptoTools/Common/MatrixView.h>
+#include "cryptoTools/Common/MatrixView.h"
 #include "Sh3FixedPoint.h"
 
 namespace aby3

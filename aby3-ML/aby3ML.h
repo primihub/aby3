@@ -1,11 +1,11 @@
 #pragma once
-#include <cryptoTools/Network/Session.h>
-#include <cryptoTools/Network/Channel.h>
-#include <aby3/Common/Defines.h>
-#include <aby3/sh3/Sh3FixedPoint.h>
-#include <aby3/sh3/Sh3Encryptor.h>
-#include <aby3/sh3/Sh3Evaluator.h>
-#include <aby3/sh3/Sh3Piecewise.h>
+#include "cryptoTools/Network/Session.h"
+#include "cryptoTools/Network/Channel.h"
+#include "aby3/Common/Defines.h"
+#include "aby3/sh3/Sh3FixedPoint.h"
+#include "aby3/sh3/Sh3Encryptor.h"
+#include "aby3/sh3/Sh3Evaluator.h"
+#include "aby3/sh3/Sh3Piecewise.h"
 
 namespace aby3
 {

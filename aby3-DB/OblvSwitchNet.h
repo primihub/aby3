@@ -1,7 +1,7 @@
 #pragma once
-#include <cryptoTools/Common/Defines.h>
-#include <cryptoTools/Common/Matrix.h>
-#include <cryptoTools/Network/Channel.h>
+#include "cryptoTools/Common/Defines.h"
+#include "cryptoTools/Common/Matrix.h"
+#include "cryptoTools/Network/Channel.h"
 #include "OblvPermutation.h"
 
 namespace osuCrypto
@@ -57,10 +57,10 @@ namespace osuCrypto
         void sendRecv(Channel& programChl, Channel& helpChl, Matrix<u8> src, MatrixView<u8> dest);
         void help(Channel& programChl, Channel& sendrChl, PRNG& prng, u32 destRows, u32 srcRows, u32 bytes);
         void program(
-            Channel& helpChl, 
+            Channel& helpChl,
             Channel& sendrChl,
-            Program& prog, 
-            PRNG& prng, 
+            Program& prog,
+            PRNG& prng,
             MatrixView<u8> dest,
             OutputType type = OutputType::Overwrite);
 

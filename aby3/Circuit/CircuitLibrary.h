@@ -1,9 +1,9 @@
 #pragma once
-#include <cryptoTools/Circuit/BetaCircuit.h>
-#include <cryptoTools/Common/Defines.h>
+#include "cryptoTools/Circuit/BetaCircuit.h"
+#include "cryptoTools/Common/Defines.h"
 #include <unordered_map>
 #include "aby3/Common/Defines.h"
-#include <cryptoTools/Circuit/BetaLibrary.h>
+#include "cryptoTools/Circuit/BetaLibrary.h"
 
 namespace aby3
 {
@@ -13,18 +13,17 @@ namespace aby3
 		using BetaCircuit = oc::BetaCircuit;
 		using BetaBundle = oc::BetaBundle;
 
-		//enum class Optimized
-		//{
-		//	Size,
-		//	Depth
-		//};
+		enum class Optimized {
+			Size,
+			Depth
+		};
 
-  //      std::unordered_map<std::string, std::unique_ptr<BetaCircuit>> mCirMap;
+    std::unordered_map<std::string, BetaCircuit*> mCirMap;
 
 
 		BetaCircuit* int_Sh3Piecewise_helper(u64 aSize, u64 numThesholds);
 
-        BetaCircuit* convert_arith_to_bin(u64 n, u64 bits);
+    BetaCircuit* convert_arith_to_bin(u64 n, u64 bits);
 
 		static void int_Sh3Piecewise_build_do(
 			BetaCircuit& cd,

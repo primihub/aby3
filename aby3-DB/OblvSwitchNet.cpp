@@ -1,6 +1,6 @@
 #include "OblvSwitchNet.h"
-#include <cryptoTools/Common/BitIterator.h>
-#include <cryptoTools/Crypto/PRNG.h>
+#include "cryptoTools/Common/BitIterator.h"
+#include "cryptoTools/Crypto/PRNG.h"
 #include <iomanip>
 
 namespace osuCrypto
@@ -22,7 +22,7 @@ namespace osuCrypto
 
         sendSelect(programChl, helpChl, std::move(src));
         helpDuplicate(programChl,
-			gsl::narrow<u32>(dest.rows()), 
+			gsl::narrow<u32>(dest.rows()),
 			gsl::narrow<u32>(dest.cols()));
 
         OblvPermutation oblvPerm;
@@ -56,10 +56,10 @@ namespace osuCrypto
     }
 
     void OblvSwitchNet::program(
-        Channel & helpChl, 
-        Channel & sendrChl, 
-        Program & prog, 
-        PRNG & prng, 
+        Channel & helpChl,
+        Channel & sendrChl,
+        Program & prog,
+        PRNG & prng,
         MatrixView<u8> dest,
         OutputType type)
     {
@@ -313,7 +313,7 @@ namespace osuCrypto
                 m[1][j] ^= src(i, j);
             }
 
-            //ostreamLock (std::cout)            
+            //ostreamLock (std::cout)
             //    << "s[" << i << ", 0] = src[" << i0 << "] ^ w[" << i << ", 0] ^ s'[" << i << "]\n"
             //    << "s[" << i << ", 0] = " <<std::setw(6) << s0 << " ^ " <<std::setw(7)<< m0 << " ^ " << std::setw(7) << ss0 << " = " << int(m[0][1])
             //    << "\n"

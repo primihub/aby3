@@ -1,9 +1,9 @@
 #pragma once
 #include "aby3/Common/Defines.h"
 #include "aby3/sh3/Sh3Types.h"
-#include <cryptoTools/Network/Session.h>
+#include "cryptoTools/Network/Session.h"
 #include <boost/variant.hpp>
-#include <function2/function2.hpp>
+#include "function2/function2.hpp"
 #include <deque>
 #include <unordered_map>
 #include <string>
@@ -14,7 +14,7 @@ namespace aby3
 {
 
     class Sh3Runtime;
-	class Sh3TaskBase;
+	  class Sh3TaskBase;
 
 
     class Sh3Task
@@ -23,7 +23,7 @@ namespace aby3
 
         using RoundFunc = fu2::unique_function<void(CommPkg& comm, Sh3Task& self)>;
         using ContinuationFunc = fu2::unique_function<void(Sh3Task& self)>;
-		enum Type { Evaluation, Closure };
+		    enum Type { Evaluation, Closure };
 
         // returns the associated runtime.
         Sh3Runtime& getRuntime() const { return *mRuntime; }
@@ -41,7 +41,7 @@ namespace aby3
 		Sh3Task then(ContinuationFunc task, std::string name);
 
 		// Get a task that is fulfilled when all of this tasks dependencies
-		// are fulfilled. 
+		// are fulfilled.
 		Sh3Task getClosure();
 
 		//Sh3Task getClosure(std::string anme);
@@ -52,7 +52,7 @@ namespace aby3
 
 		Sh3Task operator&=(const Sh3Task& o);
 
-        // blocks until this task is completed. 
+        // blocks until this task is completed.
         void get();
 
 		bool isCompleted();
@@ -171,7 +171,7 @@ namespace aby3
             mNullTask.mIdx = -1;
             //mActiveTasks.resize(1024, nullptr);
         }
-        
+
         const Sh3Task& noDependencies() const { return mNullTask; }
         operator Sh3Task() const { return noDependencies(); }
 
@@ -180,7 +180,7 @@ namespace aby3
 		Sh3Task addTask(span<Sh3Task> deps, Sh3Task::ContinuationFunc&& func, std::string&& name);
 
 		Sh3Task addClosure(Sh3Task dep);
-		
+
 		Sh3Task addAnd(span<Sh3Task> deps, std::string&& name);
 
 		//void configureAnd(span<Sh3Task> deps, Sh3TaskBase& handle);

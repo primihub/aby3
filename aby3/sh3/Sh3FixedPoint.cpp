@@ -2,7 +2,7 @@
 
 
 #include <boost/multiprecision/cpp_int.hpp>
-#include <cryptoTools/Common/BitVector.h>
+#include "cryptoTools/Common/BitVector.h"
 namespace aby3
 {
 	template<typename T, Decimal D>

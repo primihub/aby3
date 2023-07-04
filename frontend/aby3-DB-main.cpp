@@ -1,20 +1,20 @@
 
-#include <cryptoTools/Common/CLP.h>
+#include "cryptoTools/Common/CLP.h"
 
 #include "cryptoTools/Common/BitIterator.h"
 #include "cryptoTools/Common/Timer.h"
 #include "cryptoTools/Crypto/PRNG.h"
-#include <cryptoTools/Network/IOService.h>
+#include "cryptoTools/Network/IOService.h"
 #include <atomic>
-#include "aby3-DB/DBServer.h"
+// #include "aby3-DB/DBServer.h"
 #include <unordered_set>
 
-using namespace oc; 
+using namespace oc;
 
 
 void DB_Intersect(u32 rows, u32 cols, bool sum)
 {
-	using namespace aby3;
+	// using namespace aby3;
 	IOService ios;
 	Session s01(ios, "127.0.0.1", SessionMode::Server, "01");
 	Session s10(ios, "127.0.0.1", SessionMode::Client, "01");
@@ -23,7 +23,7 @@ void DB_Intersect(u32 rows, u32 cols, bool sum)
 	Session s12(ios, "127.0.0.1", SessionMode::Server, "12");
 	Session s21(ios, "127.0.0.1", SessionMode::Client, "12");
 
-	
+
 	PRNG prng(oc::ZeroBlock);
 	DBServer srvs[3];
 	srvs[0].init(0, s02, s01, prng);

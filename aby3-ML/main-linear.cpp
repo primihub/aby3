@@ -6,8 +6,8 @@
 #include <vector>
 #include <algorithm>
 
-#include <cryptoTools/Network/IOService.h>
-#include <cryptoTools/Common/CLP.h>
+#include "cryptoTools/Network/IOService.h"
+#include "cryptoTools/Common/CLP.h"
 
 
 #include "aby3-ML/PlainML.h"
@@ -73,7 +73,7 @@ int linear_main_3pc_sh(int N, int Dim, int B, int IT, int testN, int pIdx, bool 
 	p.init(pIdx, chlPrev, chlNext, toBlock(pIdx));
 
 	sf64Matrix<D> train_data, train_label, W2, test_data, test_label;
- 
+
 	if (pIdx == 0)
 	{
 		train_data  = p.localInput<D>(val_train_data);
@@ -286,7 +286,7 @@ int linear_plain_main(CLP& cmd)
 
 	eMatrix<double> W2(D, 1);
 	W2.setZero();
-	 
+
 
 	SGD_Linear(params, engine, train_data, train_label, W2, &test_data, &test_label);
 

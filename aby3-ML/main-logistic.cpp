@@ -8,10 +8,10 @@
 
 #include <time.h>
 
-#include <cryptoTools/Network/IOService.h>
+#include "cryptoTools/Network/IOService.h"
 
-#include <cryptoTools/Common/CLP.h>
-#include <Eigen/Dense>
+#include "cryptoTools/Common/CLP.h"
+#include "Eigen/Dense"
 
 #include "aby3-ML/Regression.h"
 #include "aby3-ML/LinearModelGen.h"

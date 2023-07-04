@@ -1,12 +1,12 @@
 
 
-#include <cryptoTools/Network/IOService.h>
-#include <cryptoTools/Network/Session.h>
-#include <cryptoTools/Network/Channel.h>
-#include <cryptoTools/Common/Matrix.h>
-#include <aby3-DB/OblvPermutation.h>
-#include <aby3-DB/OblvSwitchNet.h>
-#include <cryptoTools/Crypto/PRNG.h>
+#include "cryptoTools/Network/IOService.h"
+#include "cryptoTools/Network/Session.h"
+#include "cryptoTools/Network/Channel.h"
+#include "cryptoTools/Common/Matrix.h"
+#include "aby3-DB/OblvPermutation.h"
+#include "aby3-DB/OblvSwitchNet.h"
+#include "cryptoTools/Crypto/PRNG.h"
 #include "PermutaitonTests.h"
 #include <iomanip>
 
@@ -57,7 +57,7 @@ void Perm3p_overwrite_Test()
     //    std::cout << std::endl;
     //}
 
-    //auto t0 = std::thread([&]() 
+    //auto t0 = std::thread([&]()
     {
         OblvPermutation p;
         auto perm2 = perm;
@@ -65,7 +65,7 @@ void Perm3p_overwrite_Test()
     }//);
     //std::cout << std::endl;
 
-    //auto t1 = std::thread([&]() 
+    //auto t1 = std::thread([&]()
     {
         OblvPermutation p;
         p.send(chl10, chl12, mtx, "test");
@@ -158,7 +158,7 @@ void Perm3p_additive_Test()
     //    std::cout << std::endl;
     //}
 
-    //auto t0 = std::thread([&]() 
+    //auto t0 = std::thread([&]()
     {
         OblvPermutation p;
         auto perm2 = perm;
@@ -166,7 +166,7 @@ void Perm3p_additive_Test()
     }//);
      //std::cout << std::endl;
 
-     //auto t1 = std::thread([&]() 
+     //auto t1 = std::thread([&]()
     {
         OblvPermutation p;
         p.send(chl10, chl12, mtx, "test");
@@ -256,7 +256,7 @@ void Perm3p_subset_Test()
     //    std::cout << std::endl;
     //}
 
-    //auto t0 = std::thread([&]() 
+    //auto t0 = std::thread([&]()
     {
         OblvPermutation p;
         auto perm2 = perm;
@@ -264,7 +264,7 @@ void Perm3p_subset_Test()
     }//);
      //std::cout << std::endl;
 
-     //auto t1 = std::thread([&]() 
+     //auto t1 = std::thread([&]()
     {
         OblvPermutation p;
         p.send(chl10, chl12, mtx, "test");

@@ -1,9 +1,9 @@
 #include "Sh3EncryptorTests.h"
 #include "aby3/sh3/Sh3Encryptor.h"
-#include <cryptoTools/Network/Channel.h>
-#include <cryptoTools/Network/IOService.h>
-#include <cryptoTools/Crypto/PRNG.h>
-#include <cryptoTools/Common/BitVector.h>
+#include "cryptoTools/Network/Channel.h"
+#include "cryptoTools/Network/IOService.h"
+#include "cryptoTools/Crypto/PRNG.h"
+#include "cryptoTools/Common/BitVector.h"
 
 using namespace aby3;
 using namespace oc;
@@ -197,7 +197,7 @@ void Sh3_Encryptor_IO_test()
         sbMatrix bShr(trials, trials * 64);
         e.remoteBinMatrix(c, bShr);
         e.reveal(c, 0, bShr);
-        
+
         sPackedBin pShr(trials, trials * sizeof(i64) * 8);
         e.remotePackedBinary(c, pShr);
         e.reveal(c, 0, pShr);
@@ -368,7 +368,7 @@ void Sh3_Encryptor_asyncIO_test()
             std::cout << "pac mtx" << std::endl;
             std::cout << m << std::endl;
             std::cout << mm << std::endl;
-            
+
             failed = true;
         }
 

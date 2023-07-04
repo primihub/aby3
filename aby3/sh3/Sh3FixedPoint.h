@@ -1,6 +1,6 @@
 #pragma once
-#include <aby3/Common/Defines.h>
-#include <aby3/sh3/Sh3Types.h>
+#include "aby3/Common/Defines.h"
+#include "aby3/sh3/Sh3Types.h"
 namespace aby3
 {
 
@@ -38,7 +38,7 @@ namespace aby3
 
 		//	fp promote() const { return fp(mValue, monostate{}); }
 		//	operator fp() const { return promote(); }
-		//	explicit operator double() const { return static_cast<double>(promote()); } 
+		//	explicit operator double() const { return static_cast<double>(promote()); }
 		//};
 
 
@@ -326,7 +326,7 @@ namespace aby3
 	struct sf64Matrix : private si64Matrix
 	{
 		static const Decimal mDecimal = D;
-		
+
 		struct ConstRow { const sf64Matrix<D>& mMtx; const u64 mIdx; };
 		struct Row { sf64Matrix<D>& mMtx; const u64 mIdx;  const Row& operator=(const Row& row); const ConstRow& operator=(const ConstRow& row); };
 

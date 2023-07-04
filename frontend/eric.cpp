@@ -1,9 +1,9 @@
 
-#include "aby3-DB/DBServer.h"
-#include <cryptoTools/Network/IOService.h>
+// #include "aby3-DB/DBServer.h"
+#include "cryptoTools/Network/IOService.h"
 #include <unordered_map>
 #include <iomanip>
-#include <cryptoTools/Common/Timer.h>
+#include "cryptoTools/Common/Timer.h"
 
 using namespace osuCrypto;
 
@@ -37,7 +37,7 @@ void eric(int n)
         //ColumnInfo{ "NA", TypeID::IntID, keyBitCount },
         //ColumnInfo{ "AD", TypeID::IntID, keyBitCount },
         ColumnInfo{ "DL", TypeID::IntID, keyBitCount }
-    }, 
+    },
     dvmSchema{
         ColumnInfo{ "NA", TypeID::IntID, keyBitCount },
         ColumnInfo{ "AD", TypeID::IntID, 24 },
@@ -165,10 +165,10 @@ void eric(int n)
 		if (i == 0)
 		{
 			std::cout << "s s " << voter1.rows() << "  " << state2.rows() << "  " << intersection.rows() << std::endl;
-			
-					
+
+
 		}
-		
+
 		if (i == 0)
 			t.setTimePoint("done");
 

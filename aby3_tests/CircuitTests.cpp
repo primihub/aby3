@@ -2,8 +2,8 @@
 #include "aby3/Circuit/CircuitLibrary.h"
 #include "aby3/Circuit/Garble.h"
 
-#include <cryptoTools/Crypto/PRNG.h>
-#include <cryptoTools/Common/Log.h>
+#include "cryptoTools/Crypto/PRNG.h"
+#include "cryptoTools/Common/Log.h"
 #include <random>
 #include <fstream>
 
@@ -102,11 +102,11 @@ void garble_Test(const CLP& cmd)
 	// set the free xor key. Bottom bit must be 1.
 	block freeXorOffset = prng.get<block>() | OneBlock;
 
-	// the tweak is important. Each time you set freeXorOffset, 
-	// you should intialize the tweak to zero. After that, the 
-	// garble(...), evalaute(...) functions will update this value. 
-	// This allows you to keep the same freeXorOffset between 
-	// several calls to garble(...) while maintaining security. 
+	// the tweak is important. Each time you set freeXorOffset,
+	// you should intialize the tweak to zero. After that, the
+	// garble(...), evalaute(...) functions will update this value.
+	// This allows you to keep the same freeXorOffset between
+	// several calls to garble(...) while maintaining security.
 	block gTweak = oc::ZeroBlock;
 
 	// randomly pick the zero labels for the inputs
@@ -203,7 +203,7 @@ void garble_Test(const CLP& cmd)
 	garb.evaluate(*cir, activeWireLabels, garbledGates, eTweak, E_DEBUG_LABELS);
 #else
 	garb.evaluate(*cir, activeWireLabels, garbledGates, eTweak);
-#endif 
+#endif
 
 	// decode the output.
 	BitVector output(bitCount);

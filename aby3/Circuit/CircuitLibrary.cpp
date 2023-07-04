@@ -1,6 +1,7 @@
 #include "CircuitLibrary.h"
 
-#include <cryptoTools/Circuit/BetaLibrary.h>
+#include "cryptoTools/Circuit/BetaLibrary.h"
+#include "cryptoTools/gsl/gls-lite.hpp"
 
 namespace aby3
 {
@@ -33,11 +34,12 @@ namespace aby3
 				c.mWires.resize(1);
 				cd->addOutputBundle(c);
 			}
-
+      auto cc_span = gsl::make_span(cc);
+      auto aa_span = gsl::make_span(aa);
 			int_Sh3Piecewise_build_do(*cd,
-				aa,
+				aa_span,
 				b,
-				cc);
+				cc_span);
 
 			//cd->levelByAndDepth();
 
@@ -68,7 +70,7 @@ namespace aby3
 		for (u64 t = 1; t < thresholds.size() - 1; ++t)
 			cd.addTempWireBundle(thresholds[t]);
 
-		// the first region bit is just the thrshold. 
+		// the first region bit is just the thrshold.
 		thresholds[0] = cc[0];
 
 		// compute all the signs
@@ -179,8 +181,8 @@ namespace aby3
 
 		for (u64 i = 2; i < numArgs; ++i)
 		{
-			// currently, max = max(a[0],...,a[i-2]). Now make 
-			//		max = max(a[0],...,a[i-1]) 
+			// currently, max = max(a[0],...,a[i-2]). Now make
+			//		max = max(a[0],...,a[i-1])
 			//      max = maxPointer ? a[i - 1] : max;
 			lib.int_int_multiplex_build(cd, a[i - 1], max, maxPointer, max, t);
 

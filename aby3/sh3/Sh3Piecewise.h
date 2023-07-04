@@ -4,10 +4,10 @@
 #include "aby3/sh3/Sh3Encryptor.h"
 #include "aby3/sh3/Sh3Evaluator.h"
 #include "aby3/sh3/Sh3BinaryEvaluator.h"
-#include <aby3/sh3/Sh3Types.h>
-#include <aby3/sh3/Sh3FixedPoint.h>
-#include <cryptoTools/Common/Matrix.h>
-#include <aby3/Circuit/CircuitLibrary.h>
+#include "aby3/sh3/Sh3Types.h"
+#include "aby3/sh3/Sh3FixedPoint.h"
+#include "cryptoTools/Common/Matrix.h"
+#include "aby3/Circuit/CircuitLibrary.h"
 
 namespace aby3
 {
@@ -110,7 +110,7 @@ namespace aby3
 			Sh3Task dep,
 			const sf64Matrix<D>& inputs,
 			sf64Matrix<D>& outputs,
-			Sh3Evaluator& evaluator, 
+			Sh3Evaluator& evaluator,
 			bool print = false)
 		{
 			return eval(dep, inputs.i64Cast(), outputs.i64Cast(), D, evaluator, print);

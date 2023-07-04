@@ -1,10 +1,10 @@
 #pragma once
 #include "Sh3Types.h"
 
-#include <cryptoTools/Circuit/BetaCircuit.h>
+#include "cryptoTools/Circuit/BetaCircuit.h"
 #include "Sh3Runtime.h"
-#include <cryptoTools/Crypto/RandomOracle.h>
-#include <cryptoTools/Crypto/PRNG.h>
+#include "cryptoTools/Crypto/RandomOracle.h"
+#include "cryptoTools/Crypto/PRNG.h"
 #include "Sh3ShareGen.h"
 #include <boost/align/aligned_allocator.hpp>
 #include <vector>

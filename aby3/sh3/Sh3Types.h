@@ -1,9 +1,9 @@
 #pragma once
-#include <aby3/Common/Defines.h>
-//#include <cryptoTools/Common/Matrix.h>
-#include <Eigen/Dense>
-#include <cryptoTools/Network/Channel.h>
-#include <cryptoTools/Common/Matrix.h>
+#include "aby3/Common/Defines.h"
+//#include "cryptoTools/Common/Matrix.h"
+#include "Eigen/Dense"
+#include "cryptoTools/Network/Channel.h"
+#include "cryptoTools/Common/Matrix.h"
 
 namespace aby3
 {
@@ -302,8 +302,8 @@ namespace aby3
         };
 
 
-        // Represents a packed set of binary secrets. Data is stored in a tranposed format. 
-        // The 'ith bit of all the shares are packed together into the i'th row. This allows 
+        // Represents a packed set of binary secrets. Data is stored in a tranposed format.
+        // The 'ith bit of all the shares are packed together into the i'th row. This allows
         // efficient SIMD operations. E.g. applying bit[0] = bit[1] ^ bit[2] to all the shares
         // can be performed to 64 shares using one instruction.
         template<typename T = i64>
@@ -352,11 +352,11 @@ namespace aby3
                     std::size_t sizeBytes = (sizeT + 1) * sizeof(T);
                     auto totalT = 2 * sizeT + 1; // plus one to make sure we have enought space for aligned storage.
 
-                    mBacking.reset(new u8[totalT * sizeof(T)]); 
+                    mBacking.reset(new u8[totalT * sizeof(T)]);
 
                     void* ptr = reinterpret_cast<void*>(mBacking.get());
                     auto alignment = alignof(T);
-                    
+
                     if (!std::align(alignment, sizeT * sizeof(T), ptr, sizeBytes))
                         throw RTE_LOC;
 
@@ -601,6 +601,6 @@ namespace aby3
             return col;
         }
 
-    
+
 
 }

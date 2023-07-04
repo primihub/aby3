@@ -1,5 +1,5 @@
 #pragma once
-#include <cryptoTools/Circuit/BetaCircuit.h>
+#include "cryptoTools/Circuit/BetaCircuit.h"
 #include <vector>
 #include <array>
 #include <functional>

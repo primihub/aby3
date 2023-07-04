@@ -1,7 +1,7 @@
 #include "SharedOTTests.h"
 #include "aby3/OT/SharedOT.h"
-#include <cryptoTools/Network/Session.h>
-#include <cryptoTools/Network/IOService.h>
+#include "cryptoTools/Network/Session.h"
+#include "cryptoTools/Network/IOService.h"
 
 using namespace oc;
 //using namespace aby3;

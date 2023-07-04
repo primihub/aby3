@@ -1,7 +1,7 @@
 #pragma once
-#include <cryptoTools/Common/Defines.h>
-#include <cryptoTools/Common/Matrix.h>
-#include <cryptoTools/Network/Channel.h>
+#include "cryptoTools/Common/Defines.h"
+#include "cryptoTools/Common/Matrix.h"
+#include "cryptoTools/Network/Channel.h"
 namespace osuCrypto
 {
     class PRNG;

@@ -1,5 +1,5 @@
 #pragma once
-#include <cryptoTools/Common/CLP.h>
+#include "cryptoTools/Common/CLP.h"
 namespace aby3
 {
 	int logistic_main_3pc_sh(oc::CLP& cmd);

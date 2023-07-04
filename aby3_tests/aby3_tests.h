@@ -1,7 +1,7 @@
 #pragma once
 
 
-#include <cryptoTools/Common/TestCollection.h>
+#include "cryptoTools/Common/TestCollection.h"
 
 #include "CircuitTests.h"
 #include "Sh3EncryptorTests.h"
