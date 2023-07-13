@@ -9,19 +9,77 @@ git_repository(
   remote = "https://gitee.com/primihub/rules_boost.git",
   # shallow_since = "1591047380 -0700",
 )
+load("@com_github_nelhage_rules_boost//:boost/boost.bzl", "boost_deps")
+boost_deps()
+
 http_archive(
-  name = "com_github_libote",
-  sha256 = "26ab3e3a590556abdc4d810f560bf3c201447be61da80d643120014fae8bdd4a",
-  strip_prefix = "libOTe",
-  urls = [
-    "https://primihub.oss-cn-beijing.aliyuncs.com/tools/lib_ote_aby3_dep_version.tar.gz",
-  ],
+  name = "rules_foreign_cc",
+  sha256 = "484fc0e14856b9f7434072bc2662488b3fe84d7798a5b7c92a1feb1a0fa8d088",
+  strip_prefix = "rules_foreign_cc-0.8.0",
+  url = "https://primihub.oss-cn-beijing.aliyuncs.com/tools/rules_foreign_cc_cn-0.8.0.tar.gz",
 )
-#load("@com_github_nelhage_rules_boost//:boost/boost.bzl", "boost_deps")
-#boost_deps()
+load("@rules_foreign_cc//foreign_cc:repositories.bzl", "rules_foreign_cc_dependencies")
+rules_foreign_cc_dependencies()
 
-load("//bazel:preload.bzl", "aby3_preload")
-aby3_preload()
+http_archive(
+  name = "eigen",
+  build_file = "//bazel:BUILD.eigen",
+  strip_prefix = "eigen-3.4",
+  urls = [
+    "https://primihub.oss-cn-beijing.aliyuncs.com/tools/eigen-3.4.tar.bz2",
+  ],
+  sha256 = "a6f7aaa7b19c289dfeb33281e1954f19bf2ba1c6cae2c182354d820f535abef8",
+)
 
-load("//bazel:deps.bzl", "aby3_deps")
-aby3_deps()
+new_git_repository(
+  name = "lib_function2",
+  build_file = "//bazel:BUILD.function2",
+  remote = "https://gitee.com/mirrors_Naios/function2.git",
+  commit = "b8cf935d096a87a645534e5c1015ee80960fe4de",
+  shallow_since = "1616573746 +0100",
+)
+
+http_archive(
+  name = "nlohmann_json",
+  build_file = "//bazel:BUILD.nlohmann_json",
+  strip_prefix = "json-3.9.1",
+  urls = [
+    "https://primihub.oss-cn-beijing.aliyuncs.com/tools/json-3.9.1.tar.gz"
+  ],
+  sha256 = "4cf0df69731494668bdd6460ed8cb269b68de9c19ad8c27abc24cd72605b2d5b",
+)
+
+git_repository(
+  name = "ladnir_cryptoTools",
+  #branch = "bazel_branch",
+  commit = "f83f2b29ae0f1c32dfc948568e4227a73eb02883",
+  remote = "https://gitee.com/primihub/cryptoTools.git",
+)
+
+git_repository(
+  name = "osu_libote",
+  #branch = "bazel_branch",
+  commit = "b1f83ced131c58e565dbd47a5166bd9904ffdd83",
+  remote = "https://gitee.com/primihub/libOTe.git",
+)
+
+new_git_repository(
+  name = "toolkit_relic",
+  build_file = "//bazel:BUILD.relic",
+  remote = "https://gitee.com/orzmzp/relic.git",
+  commit = "3f616ad64c3e63039277b8c90915607b6a2c504c",
+  shallow_since = "1581106153 -0800",
+)
+
+http_archive(
+  name = "com_github_microsoft_gsl",
+  build_file = "//bazel:BUILD.gsl",
+  sha256 = "f0e32cb10654fea91ad56bde89170d78cfbf4363ee0b01d8f097de2ba49f6ce9",
+  strip_prefix = "GSL-4.0.0",
+  urls = [
+    "https://primihub.oss-cn-beijing.aliyuncs.com/tools/SEAL-4.1.1.tar.gz"
+  ],
+
+)
+
+

@@ -302,7 +302,7 @@ namespace osuCrypto
             circuitOutput,
             leftPassthroughCols,
             C,
-            // inputs 
+            // inputs
             query);
 
 
@@ -318,14 +318,14 @@ namespace osuCrypto
                 if (&colRef.mTable == &leftTable)
                     srcColumns.push_back(leftTable[colRef.mCol.mName]);
 
-                // if the select column is from the right table (which gets permuted), but in the column that we are 
+                // if the select column is from the right table (which gets permuted), but in the column that we are
                 // joining on, then observe that we can actaully use the left table's join column, since they will be equal
                 // for all items in the intersection. This is more efficient since it does not need to go through the circuit.
                 else if (&colRef.mTable == &rightTable && &colRef.mCol == query.mRightCol)
                     srcColumns.push_back(leftTable[query.mLeftCol->mName]);
 
                 // finally, if the select column is from the right table we will make the src column the output
-                // column itself. Note that when we do the final copy, the src and dest columns will be the same, 
+                // column itself. Note that when we do the final copy, the src and dest columns will be the same,
                 // however, the copy will move the destRows around which is desired.
                 else if (&colRef.mTable == &rightTable)
                     srcColumns.push_back(C[colRef.mCol.mName]);
@@ -349,12 +349,12 @@ namespace osuCrypto
         setTimePoint("intersect_compute_keys");
 
 
-        // construct a cuckoo table for the right table, then use the keys from left table to select out of the cuckoo table to 
-        // get three shares of the cuckoo table entries, one for each cuckoo hash function. 
+        // construct a cuckoo table for the right table, then use the keys from left table to select out of the cuckoo table to
+        // get three shares of the cuckoo table entries, one for each cuckoo hash function.
         std::array<Matrix<u8>, 3> circuitInputShare =
             mapRightTableToLeft(keys, rightCircuitInput, leftTable, rightTable);
 
-        // now perform the comparison between the entry from the left table with the three possible matched 
+        // now perform the comparison between the entry from the left table with the three possible matched
         // which were selected out of the cuckoo table.
         aby3::sPackedBin intersectionFlags =
             compare(leftCircuitInput, rightCircuitInput, circuitOutput, query, circuitInputShare);
@@ -476,7 +476,7 @@ namespace osuCrypto
             circuitOutput,
             leftPassthroughCols,
             C,
-            // inputs 
+            // inputs
             query);
 
         //constructOutTable(circuitInputCols, circuitOutCols, C, rightJoinCol, leftJoinCol, leftSelects, maxRows, false);
@@ -486,12 +486,12 @@ namespace osuCrypto
         aby3::i64Matrix keys = computeKeys(AB, reveals);
         setTimePoint("union_compute_keys");
 
-        // construct a cuckoo table for the right table, then use the keys from left table to select out of the cuckoo table to 
-        // get three shares of the cuckoo table entries, one for each cuckoo hash function. 
+        // construct a cuckoo table for the right table, then use the keys from left table to select out of the cuckoo table to
+        // get three shares of the cuckoo table entries, one for each cuckoo hash function.
         std::array<Matrix<u8>, 3> circuitInputShare =
             mapRightTableToLeft(keys, rightCircuitInput, leftTable, rightTable);
 
-        // now perform the comparison between the entry from the left table with the three possible matched 
+        // now perform the comparison between the entry from the left table with the three possible matched
         // which were selected out of the cuckoo table.
         aby3::sPackedBin intersectionFlags =
             unionCompare(leftJoinCol, rightJoinCol, circuitInputShare);
@@ -572,7 +572,7 @@ namespace osuCrypto
             setTimePoint("intersect_cuckoo_hash");
 
             // based on the keys for the left table, select the corresponding entries out of
-            // the cuckoo hash table. circuitInputShare will hold three shares per left table entry, 
+            // the cuckoo hash table. circuitInputShare will hold three shares per left table entry,
             // one share for each of the three hash function.
             circuitInputShare = selectCuckooPos(cuckooTable, leftTable.rows());
             setTimePoint("intersect_select_cuckoo");
@@ -591,7 +591,7 @@ namespace osuCrypto
             setTimePoint("intersect_cuckoo_hash");
 
             // based on the keys for the left table, select the corresponding entries out of
-            // the cuckoo hash table. circuitInputShare will hold three shares per left table entry, 
+            // the cuckoo hash table. circuitInputShare will hold three shares per left table entry,
             // one share for each of the three hash function.
             circuitInputShare = selectCuckooPos(cuckooTable, leftTable.rows(), cuckooParams, keys);
             setTimePoint("intersect_select_cuckoo");
@@ -612,7 +612,7 @@ namespace osuCrypto
             setTimePoint("intersect_cuckoo_hash");
 
             // based on the keys for the left table, select the corresponding entries out of
-            // the cuckoo hash table. circuitInputShare will hold three shares per left table entry, 
+            // the cuckoo hash table. circuitInputShare will hold three shares per left table entry,
             // one share for each of the three hash function.
             selectCuckooPos(leftTable.rows(), cuckooParams.numBins(), selectByteCount);
             setTimePoint("intersect_select_cuckoo");
@@ -923,9 +923,9 @@ namespace osuCrypto
         for (u64 h = 0; h < 3; ++h)
         {
             snet.help(mRt.mComm.mPrev, mRt.mComm.mNext, mPrng,
-                gsl::narrow<u32>(destRows),
-                gsl::narrow<u32>(srcRows),
-                gsl::narrow<u32>(bytes));
+                static_cast<u32>(destRows),
+                static_cast<u32>(srcRows),
+                static_cast<u32>(bytes));
         }
     }
 
@@ -961,8 +961,8 @@ namespace osuCrypto
         for (u64 h = 0; h < 3; ++h)
         {
             progs[h].init(
-                gsl::narrow<u32>(cuckooHashTable.rows()),
-                gsl::narrow<u32>(keys.rows()));
+                static_cast<u32>(cuckooHashTable.rows()),
+                static_cast<u32>(keys.rows()));
         }
 
         for (u64 i = 0; i < view.size(); ++i)
@@ -1519,9 +1519,9 @@ namespace osuCrypto
         }
 
 
-        // return the parity if the three eq tests. 
-        // this will be 1 if a single items matchs. 
-        // We should never have 2 matches so this is 
+        // return the parity if the three eq tests.
+        // this will be 1 if a single items matchs.
+        // We should never have 2 matches so this is
         // effectively the same as using GateType::Or
         r.addGate(t0[0], t1[0], GateType::Xor, out[0]);
         r.addGate(t2[0], out[0], GateType::Xor, out[0]);
@@ -1647,9 +1647,9 @@ namespace osuCrypto
         }
 
 
-        // return the parity if the three eq tests. 
-        // this will be 1 if a single items matchs. 
-        // We should never have 2 matches so this is 
+        // return the parity if the three eq tests.
+        // this will be 1 if a single items matchs.
+        // We should never have 2 matches so this is
         // effectively the same as using GateType::Or
         r.addGate(t0[0], t1[0], GateType::Xor, out[0]);
         r.addGate(t2[0], out[0], GateType::Xor, out[0]);

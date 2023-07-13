@@ -23,6 +23,7 @@ cc_library(
   deps = [
     ":common_lib",
     "@ladnir_cryptoTools//:libcryptoTools",
+    "@com_github_microsoft_gsl//:gsl_lib",
   ],
 )
 
@@ -70,6 +71,6 @@ cc_library(
     ":circuit_lib",
     "@eigen//:eigen",
     "@lib_function2//:function2",
-    "@com_github_libote//:libOTe"
+    "@osu_libote//:libOTe"
   ],
 )

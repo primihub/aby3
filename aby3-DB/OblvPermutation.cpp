@@ -12,7 +12,7 @@ namespace osuCrypto
         Matrix<u8> src,
         std::string tag)
     {
-        u32 rows = gsl::narrow<u32>(src.rows());
+        u32 rows = static_cast<u32>(src.rows());
         //std::vector<u32> pi1(src.rows());
         //for (u32 i = 0; i < pi1.size(); ++i)
         //{
@@ -105,7 +105,7 @@ namespace osuCrypto
         std::string tag,
         OutputType type)
     {
-        u32 recvCount = gsl::narrow<u32>((srcRows + step - 1) / step);
+        u32 recvCount = static_cast<u32>((srcRows + step - 1) / step);
 
         std::vector<std::pair<std::future<void>, std::vector<u8>>> recvs1(recvCount);
         std::vector<std::pair<std::future<void>, std::vector<u32>>> recvs2(recvCount);
@@ -185,7 +185,7 @@ namespace osuCrypto
         auto permPointer = std::make_shared<std::vector<u32>>(std::move(permutation));
 
         auto& perm = *permPointer;
-        auto rows = gsl::narrow<u32>(perm.size());
+        auto rows = static_cast<u32>(perm.size());
 
         //#ifndef NDEBUG
         //        if (true)

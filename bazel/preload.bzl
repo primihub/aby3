@@ -48,11 +48,28 @@ def aby3_preload(repo_reference = ""):
     )
 
   if "ladnir_cryptoTools" not in native.existing_rules():
-    http_archive(
+    git_repository(
       name = "ladnir_cryptoTools",
-      strip_prefix = "cryptoTools",
-      urls = [
-        "https://primihub.oss-cn-beijing.aliyuncs.com/tools/cryptoTools_aby3_dep.tar.gz",
-      ],
+      #branch = "bazel_branch",
+      commit = "f83f2b29ae0f1c32dfc948568e4227a73eb02883",
+      remote = "https://gitee.com/primihub/cryptoTools.git",
+    )
+
+  if "osu_libote" not in native.existing_rules():
+    # libote
+    git_repository(
+      name = "osu_libote",
+      #branch = "bazel_branch",
+      commit = "b1f83ced131c58e565dbd47a5166bd9904ffdd83",
+      remote = "https://gitee.com/primihub/libOTe.git",
+    )
+
+  if "toolkit_relic" not in native.existing_rules():
+    new_git_repository(
+      name = "toolkit_relic",
+      build_file = "//bazel:BUILD.relic",
+      remote = "https://gitee.com/orzmzp/relic.git",
+      commit = "3f616ad64c3e63039277b8c90915607b6a2c504c",
+      shallow_since = "1581106153 -0800",
     )
 

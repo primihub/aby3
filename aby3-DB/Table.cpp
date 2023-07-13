@@ -10,13 +10,13 @@ namespace osuCrypto
         mMem.emplace_back();
         auto& mem = mMem.back();
         mInputs.emplace_back(
-			gsl::narrow<int>(mMem.size()) - 1,
-			column, 
-			gsl::narrow<int>(mInputs.size()));
+			      static_cast<int>(mMem.size()) - 1,
+			      column,
+			      static_cast<int>(mInputs.size()));
 
         mem.mType = column.mCol.mType;
-        mem.mInputIdx = gsl::narrow<int>(mInputs.size()) - 1;
-        mem.mIdx = gsl::narrow<int>(mMem.size()) - 1;
+        mem.mInputIdx = static_cast<int>(mInputs.size()) - 1;
+        mem.mIdx = static_cast<int>(mMem.size()) - 1;
 
         if (&column.mTable == mLeftTable)
             mLeftInputs.push_back(&mInputs.back());
@@ -85,12 +85,12 @@ namespace osuCrypto
         gate.op = op;
         gate.mIn1 = wire1;
         gate.mIn2 = wire2;
-        gate.mOut = gsl::narrow<int>(mMem.size());
+        gate.mOut = static_cast<int>(mMem.size());
 
         mGates.push_back(gate);
 
         mem.mGate = &mGates.back();
-        mem.mIdx = gsl::narrow<int>(mMem.size());
+        mem.mIdx = static_cast<int>(mMem.size());
 
         mMem.push_back(mem);
 
@@ -111,14 +111,14 @@ namespace osuCrypto
         selectDetails::Gate gate;
         gate.op = op;
         gate.mIn1 = wire1;
-        gate.mOut = gsl::narrow<int>(mMem.size());
+        gate.mOut = static_cast<int>(mMem.size());
         mGates.push_back(gate);
 
 
         selectDetails::Mem mem;
         mem.mType = mMem[wire1].mType;
         mem.mGate = &mGates.back();
-        mem.mIdx = gsl::narrow<int>(mMem.size());
+        mem.mIdx = static_cast<int>(mMem.size());
         mMem.push_back(mem);
 
         return mem.mIdx;
@@ -130,7 +130,7 @@ namespace osuCrypto
             throw std::runtime_error("call joinOn(...) first. " LOCATION);
 
         mOutputs.emplace_back(mMem[column.mMemIdx].mIdx, name, -1);
-        mMem[column.mMemIdx].mOutputIdx = gsl::narrow<int>(mOutputs.size()) - 1;
+        mMem[column.mMemIdx].mOutputIdx = static_cast<int>(mOutputs.size()) - 1;
 
 
         auto maxPos = -1;

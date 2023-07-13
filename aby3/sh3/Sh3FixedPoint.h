@@ -1,22 +1,18 @@
 #pragma once
 #include "aby3/Common/Defines.h"
 #include "aby3/sh3/Sh3Types.h"
-namespace aby3
-{
-
-	enum Decimal
-	{
-		D0 = 0,
-		D8 = 8,
-		D16 = 16,
-		D32 = 32
-	};
+namespace aby3 {
+  enum Decimal {
+    D0 = 0,
+    D8 = 8,
+    D16 = 16,
+    D20 = 20,
+    D32 = 32
+  };
 
 	//template<Decimal D>
 	//using f64 = fpml::fixed_point<i64, 63 - D, D>;
 	struct monostate {};
-
-
 
 	template<typename T, Decimal D>
 	struct fp

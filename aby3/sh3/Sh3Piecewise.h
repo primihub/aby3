@@ -116,6 +116,15 @@ namespace aby3
 			return eval(dep, inputs.i64Cast(), outputs.i64Cast(), D, evaluator, print);
 		}
 
+    Sh3Task eval(
+      Sh3Task dep,
+      const si64Matrix& inputs,
+      si64Matrix& outputs,
+      Sh3Evaluator& evaluator,
+      bool print = true) {
+      return eval(dep, inputs, outputs, 16, evaluator, print);
+    }
+
 		std::vector<sbMatrix> mInputRegions;
 		std::vector<sbMatrix> circuitInput0;
 		sbMatrix circuitInput1;

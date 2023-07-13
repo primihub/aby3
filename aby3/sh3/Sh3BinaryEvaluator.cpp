@@ -733,7 +733,7 @@ namespace aby3
                 }
             }
             memcpy(
-                &mMem.mShares[1][gate.mOutput](0),
+                &mMem.mShares[1][gate.mOutput][0],
                 &mCheckBlock,
                 sizeof(block_type));
         };

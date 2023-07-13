@@ -50,12 +50,12 @@ namespace aby3
 		i64Matrix in, out;
 		in.resizeLike(inputs);
 		out.resizeLike(inputs);
-		for (u64 i = 0; i < in.size(); ++i)
+		for (int64_t i = 0; i < in.size(); ++i)
 			in(i) = static_cast<i64>(inputs(i) * (1ull << D));
 
 		eval(in, out, D, print);
 
-		for (u64 i = 0; i < in.size(); ++i)
+		for (int64_t i = 0; i < in.size(); ++i)
 			outputs(i) = out(i) / double(1ull << D);
 	}
 
@@ -65,7 +65,7 @@ namespace aby3
 	{
 		oc::Matrix<u8> inputRegions(inputs.rows(), mThresholds.size() + 1);
 		std::vector<u8> thresholds(mThresholds.size());
-		for (u64 i = 0; i < inputs.rows(); ++i)
+		for (int64_t i = 0; i < inputs.rows(); ++i)
 		{
 			auto& in = inputs(i);
 
@@ -122,7 +122,7 @@ namespace aby3
 
 		if (print)
 		{
-			for (u64 i = 0; i < inputs.rows(); ++i)
+			for (int64_t i = 0; i < inputs.rows(); ++i)
 			{
 				std::cout << i << ":  ";
 				for (u64 t = 0; t < mCoefficients.size(); ++t)
@@ -140,7 +140,7 @@ namespace aby3
 			}
 		}
 
-		for (u64 i = 0; i < inputs.rows(); ++i)
+		for (int64_t i = 0; i < inputs.rows(); ++i)
 		{
 			auto in = inputs(i);
 			auto& out = outputs(i);
@@ -179,7 +179,7 @@ namespace aby3
 		}
 
 	}
-#define UPDATE 
+#define UPDATE
 
 	Sh3Task Sh3Piecewise::eval(
 		Sh3Task dep,
@@ -216,7 +216,7 @@ namespace aby3
 //#define Sh3Piecewise_DEBUG
 #ifdef Sh3Piecewise_DEBUG
 			//rangeTestTask.then([&](Sh3Task self){
-			
+
 					i64Matrix plain_inputs(inputs.rows(), inputs.cols());
 					DebugEnc.revealAll(DebugRt.noDependencies(), inputs, plain_inputs).get();
 
@@ -228,7 +228,7 @@ namespace aby3
 					std::vector<i64Matrix> inputRegions__(mCoefficients.size());
 					for (u64 i = 0; i < mCoefficients.size(); ++i)
 					{
-						//inputRegions__[i] = 
+						//inputRegions__[i] =
 						inputRegions__[i].resize(mInputRegions[i].rows(), 1);
 						DebugEnc.revealAll(DebugRt.noDependencies(), mInputRegions[i], inputRegions__[i]).get();
 						//std::cout << i << std::endl << inputRegions__[i] << std::endl << std::endl;
@@ -286,7 +286,7 @@ namespace aby3
 			//{
 			outputs.mShares[0].setZero();
 			outputs.mShares[1].setZero();
-			
+
 			auto multTask = combineTask;
 
 			for (u64 c = 0; c < mCoefficients.size(); ++c)
@@ -296,7 +296,7 @@ namespace aby3
 					if (mCoefficients[c].size() > 1)
 					{
 						// multiplication by a private value
-						//multTask = multTask && 
+						//multTask = multTask &&
 						evaluator.asyncMul(
 							combineTask,
 							functionOutputs[c],
@@ -315,7 +315,7 @@ namespace aby3
 						// multiplication by a public constant
 						functionOutputs[c].resize(inputs.rows(), inputs.cols());
 
-						//multTask = multTask && 
+						//multTask = multTask &&
 						evaluator.asyncMul(
 							combineTask,
 							mCoefficients[c][0].getFixedPoint(D),
@@ -326,7 +326,7 @@ namespace aby3
 								}
 						).get();
 						//handles[c].get();
-					} 
+					}
 
 					//auto pub = eng.reconstructShare(functionOutputs[c]);
 #ifdef Sh3Piecewise_DEBUG
@@ -385,10 +385,10 @@ namespace aby3
 		bool print)
 	{
 
-		// First we want to transform the input into a more efficient prepresentation. 
+		// First we want to transform the input into a more efficient prepresentation.
 		// Currently we have x0,x1,x2 which sum to the input. We are going to add
-		// x0 and x1 together so that we have a 2-out-of-2 sharing of the input. Party 0 
-		// who holds both of these shares will do the addition. After this, we are 
+		// x0 and x1 together so that we have a 2-out-of-2 sharing of the input. Party 0
+		// who holds both of these shares will do the addition. After this, we are
 		// going to input these two shares into a circuit to compute the threshold bits
 
 		// This is a bit stange but for each theshold computation, input0 will
@@ -465,9 +465,9 @@ namespace aby3
 			//   x - t0
 			//    ...
 			//   x - tn
-			// Since we are only interested in the sign of these differences, we only 
+			// Since we are only interested in the sign of these differences, we only
 			// compute the MSB of the difference. Also, notice that x2 is shared between
-			// all of the shares. As such we input have one circuitInput1=x2 while we have 
+			// all of the shares. As such we input have one circuitInput1=x2 while we have
 			// n circuitInputs0.
 
 			for (u64 t = 1; t < mThresholds.size(); ++t)
@@ -506,11 +506,11 @@ namespace aby3
 
 				.get();
 			UPDATE;
-				
+
 		//}, "getInputRegions-part2");
 		//auto closure = ret.getClosure("getInputRegions-closure");
 		//return closure;
-		
+
 		return self.getRuntime();
 
 	}

@@ -45,11 +45,11 @@ namespace aby3
 			const si64& B,
 			si64& C);
 
-        Sh3Task asyncMul(
-            Sh3Task dependency,
-            const si64Matrix& A,
-            const si64Matrix& B,
-            si64Matrix& C);
+    Sh3Task asyncMul(
+        Sh3Task dependency,
+        const si64Matrix& A,
+        const si64Matrix& B,
+        si64Matrix& C);
 
 
 		Sh3Task asyncMul(
@@ -111,12 +111,78 @@ namespace aby3
 			const sbMatrix& B,
 			si64Matrix& C);
 
-        TruncationPair getTruncationTuple(u64 xSize, u64 ySize, u64 d);
-
-        u64 mPartyIdx = -1, mTruncationIdx = 0;
-        Sh3ShareGen mShareGen;
+    TruncationPair getTruncationTuple(u64 xSize, u64 ySize, u64 d);
+    u64 mPartyIdx = -1, mTruncationIdx = 0;
+    Sh3ShareGen mShareGen;
 		SharedOT mOtPrev, mOtNext;
-    };
+
+  // const matrix mul
+  void asyncConstMul(const i64& a, const si64Matrix& b, si64Matrix& c);
+
+  // const mul
+  void asyncConstMul(const i64& a, const si64& b, si64& c);
+
+  // secret share -> fixed const matrix mul
+  template<Decimal D>
+  void asyncConstMul(const i64& A, const sf64<D>& B, sf64<D>& C) {
+    return asyncConstMul(A, B.i64Cast(), C.i64Cast());
+  }
+
+  // secret share -> fixed matrix const mul
+  template<Decimal D>
+  void asyncConstMul(const i64& A, const sf64Matrix<D>& B, sf64Matrix<D>& C) {
+    return asyncConstMul(A, B.i64Cast(), C.i64Cast());
+  }
+
+  // const fixed number mul
+  Sh3Task asyncConstFixedMul(Sh3Task  dependency, const i64& A,
+                             const si64& B, si64& C, u64 shift);
+
+  // const fixed matrix mul
+  Sh3Task asyncConstFixedMul(Sh3Task dependency, const i64& A,
+                             const si64Matrix& B, si64Matrix& C, u64 shift);
+
+  //secret share -> fixed matrix mul
+  template<Decimal D>
+  Sh3Task asyncConstFixedMul(Sh3Task dependency, const f64<D>& A,
+                             const sf64<D>& B, sf64<D>& C) {
+    return asyncConstFixedMul(dependency, A.mValue, B.i64Cast(),
+                              C.i64Cast(), D);
+  }
+
+  // secret share -> fixed matrix const mul
+  template<Decimal D>
+  Sh3Task asyncConstFixedMul(Sh3Task dependency, const f64<D>& A,
+                             const sf64Matrix<D>& B, sf64Matrix<D>& C) {
+    return asyncConstFixedMul(dependency, A.mValue, B.i64Cast(),
+                              C.i64Cast(), D);
+  }
+
+  Sh3Task asyncConstMul_test(Sh3Task dependency, const i64& A, const si64& B,
+                             si64& C);
+
+  Sh3Task asyncConstMul_test(Sh3Task dependency, const i64& A, si64Matrix B,
+                             si64Matrix& C);
+
+  Sh3Task asyncDotMul(Sh3Task dependency, const si64Matrix &A,
+                      const si64Matrix &B, si64Matrix &C, u64 shift);
+
+  template <Decimal D>
+  Sh3Task asyncDotMul(Sh3Task dependency, const sf64Matrix<D> &A,
+                      const sf64Matrix<D> &B, sf64Matrix<D> &C) {
+    return asyncDotMul(dependency, A.i64Cast(), B.i64Cast(), C.i64Cast(), D);
+  }
+
+  template <Decimal D>
+  Sh3Task asyncDotMul(Sh3Task dependency, const sf64Matrix<D> &A,
+                      const sf64Matrix<D> &B, sf64Matrix<D> &C, u64 shift) {
+    return asyncDotMul(dependency, A.i64Cast(), B.i64Cast(), C.i64Cast(),
+                       D + shift);
+  }
+
+  Sh3Task asyncDotMul(Sh3Task dependency, const si64Matrix &A,
+                      const si64Matrix &B, si64Matrix &C);
+};
 
 
 

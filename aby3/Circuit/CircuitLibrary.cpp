@@ -1,7 +1,8 @@
 #include "CircuitLibrary.h"
 
 #include "cryptoTools/Circuit/BetaLibrary.h"
-#include "cryptoTools/gsl/gls-lite.hpp"
+#include "aby3/Circuit/kogge_stone.h"
+#include "gsl/span"
 
 namespace aby3
 {
@@ -76,7 +77,9 @@ namespace aby3
 		// compute all the signs
 		for (u64 t = 0; t < thresholds.size(); ++t)
 		{
-			oc::BetaLibrary::int_int_add_msb_build_do(cd, aa[t], b, thresholds[t], temps[t]);
+      KoggeStoneLibrary lib;
+      lib.int_int_add_msb_build_optimized(&cd, aa[t], b, thresholds[t], temps[t]);
+			// oc::BetaLibrary::int_int_add_msb_build_do(cd, aa[t], b, thresholds[t], temps[t]);
 			//std::cout << t << " @ " << thresholds[t].mWires[0] << std::endl;
 			//cd.addPrint(std::to_string(t) + "  ");
 			//cd.addPrint(thresholds[t]);
@@ -252,7 +255,7 @@ namespace aby3
                 iter2 += bits;
 
                 cd->addTempWireBundle(temp);
-                int_int_add_build_do(*cd, inSubs[0], inSubs[1], outSub, temp);
+                this->int_int_add_build_do(*cd, inSubs[0], inSubs[1], outSub, temp);
             }
 
             iter = mCirMap.insert(std::make_pair(key, cd)).first;

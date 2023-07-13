@@ -1,5 +1,5 @@
 #include "aby3/Circuit/Garble.h"
-#include "cryptoTools/gsl/gls-lite.hpp"
+#include "gsl/assert",
 //#define GARBLE_DEBUG
 
 namespace osuCrypto
@@ -118,7 +118,7 @@ namespace osuCrypto
 
 
 
-			if (GSL_LIKELY(gt != GateType::a))
+			if (GSL_LIKELY(gt != oc::GateType::a))
 			{
 				auto a = wires[gate.mInput[0]];
 				auto b = wires[gate.mInput[1]];
@@ -134,7 +134,7 @@ namespace osuCrypto
 				if (GSL_LIKELY(!constAB))
 				{
 
-					if (GSL_LIKELY(gt == GateType::Xor || gt == GateType::Nxor))
+					if (GSL_LIKELY(gt == oc::GateType::Xor || gt == oc::GateType::Nxor))
 					{
 #ifdef OC_ENABLE_PUBLIC_WIRE_LABELS
 						if (GSL_LIKELY(neq(a, b)))
@@ -270,7 +270,7 @@ namespace osuCrypto
 			auto& gt = gate.mType;
 
 
-			if (GSL_LIKELY(gt != GateType::a))
+			if (GSL_LIKELY(gt != oc::GateType::a))
 			{
 				auto a = wires[gate.mInput[0]];
 				auto b = wires[gate.mInput[1]];
@@ -287,7 +287,7 @@ namespace osuCrypto
 
 				if (GSL_LIKELY(!constAB))
 				{
-					if (GSL_LIKELY(gt == GateType::Xor || gt == GateType::Nxor))
+					if (GSL_LIKELY(gt == oc::GateType::Xor || gt == oc::GateType::Nxor))
 					{
 #ifdef OC_ENABLE_PUBLIC_WIRE_LABELS
 						// is a == b^1
@@ -315,12 +315,12 @@ namespace osuCrypto
 					else
 					{
 #ifdef GARBLE_DEBUG
-						Expects(!(gt == GateType::a ||
-							gt == GateType::b ||
-							gt == GateType::na ||
-							gt == GateType::nb ||
-							gt == GateType::One ||
-							gt == GateType::Zero));
+						Expects(!(gt == oc::GateType::a ||
+							gt == oc::GateType::b ||
+							gt == oc::GateType::na ||
+							gt == oc::GateType::nb ||
+							gt == oc::GateType::One ||
+							gt == oc::GateType::Zero));
 #endif // ! NDEBUG
 
 						// compute the gate modifier variables
@@ -397,7 +397,7 @@ namespace osuCrypto
 
 				}
 
-				//if (i == 2 && gt != GateType::a)
+				//if (i == 2 && gt != oc::GateType::a)
 				//{
 				//    std::cout << "g a " << a << " b " << b << " " << gateToString(gt) << " " << c << " " << (c ^ mGlobalOffset) << std::endl;
 

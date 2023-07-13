@@ -21,9 +21,7 @@ namespace osuCrypto
             src.resize(dest.rows(), src.cols());
 
         sendSelect(programChl, helpChl, std::move(src));
-        helpDuplicate(programChl,
-			gsl::narrow<u32>(dest.rows()),
-			gsl::narrow<u32>(dest.cols()));
+        helpDuplicate(programChl, static_cast<u32>(dest.rows()), static_cast<u32>(dest.cols()));
 
         OblvPermutation oblvPerm;
         oblvPerm.recv(programChl, helpChl, dest, dest.rows(), mTag + "_sendRecv_final");
@@ -200,7 +198,7 @@ namespace osuCrypto
     {
         auto counts = std::move(mCounts);
         auto k = counts.size();
-        auto n = gsl::narrow<int>(mSrcDests.size());
+        auto n = static_cast<int>(mSrcDests.size());
 
         // Compute partial sums.
         for (int i = 0, sum = 0; i < k; ++i) {
