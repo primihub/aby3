@@ -79,11 +79,12 @@ namespace aby3
                     + mShareGen.getShare();
 
                 comm.mNext.asyncSendCopy(C[0]);
-                auto fu = comm.mPrev.asyncRecv(C[1]).share();
+                comm.mPrev.asyncRecv(C[1]).get();
+                // auto fu = comm.mPrev.asyncRecv(C[1]).share();
 
-                self.then([fu = std::move(fu)](CommPkg& comm, Sh3Task& self){
-                    fu.get();
-                });
+                // self.then([fu = std::move(fu)](CommPkg& comm, Sh3Task& self){
+                //     fu.get();
+                // });
             }).getClosure();
     }
 
@@ -105,11 +106,12 @@ namespace aby3
                 C.mShares[1].resizeLike(C.mShares[0]);
 
                 comm.mNext.asyncSendCopy(C.mShares[0].data(), C.mShares[0].size());
-                auto fu = comm.mPrev.asyncRecv(C.mShares[1].data(), C.mShares[1].size()).share();
+                comm.mPrev.asyncRecv(C.mShares[1].data(), C.mShares[1].size()).get();
+                // auto fu = comm.mPrev.asyncRecv(C.mShares[1].data(), C.mShares[1].size()).share();
 
-                self.then([fu = std::move(fu)](CommPkg& comm, Sh3Task& self){
-                    fu.get();
-                });
+                // self.then([fu = std::move(fu)](CommPkg& comm, Sh3Task& self){
+                //     fu.get();
+                // });
             }).getClosure();
     }
 
@@ -175,19 +177,19 @@ namespace aby3
 
 
 
-                auto fu1 = comm.mPrev.asyncRecv(c.mShares[0].data(), c.size()).share();
+                comm.mPrev.asyncRecv(c.mShares[0].data(), c.size()).get();
                 i64* dd = c.mShares[1].data();
-                auto fu2 = SharedOT::asyncRecv(comm.mNext, comm.mPrev,
+                SharedOT::asyncRecv(comm.mNext, comm.mPrev,
                                                std::move(c1),
-                                               { dd, c.size() }).share();
-
-                self.then([
-                    fu1 = std::move(fu1),
-                        fu2 = std::move(fu2)]
-                        (CommPkg& comm, Sh3Task self) mutable {
-                        fu1.get();
-                        fu2.get();
-                    });
+                                               { dd, c.size() }).get();
+                // fu2.get();
+                // self.then([
+                //     fu1 = std::move(fu1),
+                //         fu2 = std::move(fu2)]
+                //         (CommPkg& comm, Sh3Task self) mutable {
+                //         fu1.get();
+                //         fu2.get();
+                //     });
                 break;
             }
             case 1:
@@ -211,8 +213,6 @@ namespace aby3
                 }
 
                 //std::cout << "p1 " << s1[0][0] << " " << s1[0][1] << " " << c0 << std::endl;
-
-
                 // share 0: from p0 to p1,p2
                 mOtNext.help(comm.mNext, c0);
 
@@ -220,25 +220,14 @@ namespace aby3
                 mOtNext.send(comm.mNext, s1);
                 mOtPrev.send(comm.mPrev, s1);
 
-
                 // share 0: from p0 to p1,p2
                 i64* dd = c.mShares[0].data();
-                auto fu1 = SharedOT::asyncRecv(comm.mPrev, comm.mNext, std::move(c0),
-                                               { dd, c.size() }).share();
+                SharedOT::asyncRecv(comm.mPrev, comm.mNext, std::move(c0),
+                                               { dd, c.size() }).get();
 
                 // share 1:
-                auto fu2 = comm.mNext.asyncRecv(c.mShares[1].data(), c.size()).share();
+                comm.mNext.asyncRecv(c.mShares[1].data(), c.size()).get();
 
-                self.then([
-                    fu1 = std::move(fu1),
-                        fu2 = std::move(fu2),
-                        &c,
-                        _2 = std::move(c0)]
-                        (CommPkg& comm, Sh3Task self) mutable {
-                        fu1.get();
-                        fu2.get();
-                        //std::cout << "P1.get() " << c.mShares[0](0) << " " << c.mShares[1](0) << std::endl;
-                    });
 
                 break;
             }
@@ -255,8 +244,6 @@ namespace aby3
                 }
 
                 //std::cout << "p0 " << s0[0] << " " << c0 << " " << c1 << std::endl;
-
-
                 // share 0: from p0 to p1,p2
                 mOtPrev.help(comm.mPrev, c0);
                 comm.mNext.asyncSend(std::move(s0));
@@ -267,23 +254,12 @@ namespace aby3
 
                 // share 0: from p0 to p1,p2
                 i64* dd0 = c.mShares[1].data();
-                auto fu1 = SharedOT::asyncRecv(comm.mNext, comm.mPrev, std::move(c0),
-                                               { dd0, c.size() }).share();
-
+                SharedOT::asyncRecv(comm.mNext, comm.mPrev, std::move(c0),
+                                               { dd0, c.size() }).get();
                 // share 1: from p1 to p0,p2
                 i64* dd1 = c.mShares[0].data();
-                auto fu2 = SharedOT::asyncRecv(comm.mPrev, comm.mNext, std::move(c1),
-                                               { dd1, c.size() }).share();
-
-                self.then([
-                    fu1 = std::move(fu1),
-                        fu2 = std::move(fu2),
-                        &c]
-                        (CommPkg& comm, Sh3Task self) mutable {
-                        fu1.get();
-                        fu2.get();
-                        //std::cout << "P1.get() " << c.mShares[0](0) << " " << c.mShares[1](0) << std::endl;
-                    });
+                SharedOT::asyncRecv(comm.mPrev, comm.mNext, std::move(c1),
+                                               { dd1, c.size() }).get();
                 break;
             }
             default:
@@ -322,12 +298,9 @@ namespace aby3
                 mOtNext.send(comm.mNext, s0);
                 mOtPrev.send(comm.mPrev, s0);
 
-                auto fu1 = comm.mNext.asyncRecv(c.mShares[0].data(), c.size()).share();
-                auto fu2 = comm.mPrev.asyncRecv(c.mShares[1].data(), c.size()).share();
-                self.then([fu1 = std::move(fu1), fu2 = std::move(fu2)](CommPkg& _, Sh3Task __) mutable {
-                    fu1.get();
-                    fu2.get();
-                });
+                comm.mNext.asyncRecv(c.mShares[0].data(), c.size()).get();
+                comm.mPrev.asyncRecv(c.mShares[1].data(), c.size()).get();
+
                 break;
             }
             case 1:
@@ -344,12 +317,8 @@ namespace aby3
                 comm.mPrev.asyncSendCopy(c.mShares[1].data(), c.size());
 
                 i64* dd = c.mShares[0].data();
-                auto fu1 = SharedOT::asyncRecv(comm.mPrev, comm.mNext, std::move(c0),
-                                               { dd, c.size() }).share();
-                self.then([fu1 = std::move(fu1)](CommPkg& _, Sh3Task __) mutable {
-                    fu1.get();
-                });
-
+                SharedOT::asyncRecv(comm.mPrev, comm.mNext, std::move(c0),
+                                               { dd, c.size() }).get();
                 break;
             }
             case 2:
@@ -366,12 +335,9 @@ namespace aby3
                 comm.mNext.asyncSendCopy(c.mShares[0].data(), c.size());
 
                 i64* dd0 = c.mShares[1].data();
-                auto fu1 = SharedOT::asyncRecv(comm.mNext, comm.mPrev, std::move(c0),
-                                               { dd0, c.size() }).share();
+                SharedOT::asyncRecv(comm.mNext, comm.mPrev, std::move(c0),
+                                               { dd0, c.size() }).get();
 
-                self.then([fu1 = std::move(fu1)](CommPkg& _, Sh3Task __) mutable {
-                    fu1.get();
-                });
                 break;
             }
             default:

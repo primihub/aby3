@@ -2,15 +2,15 @@
 #include "aby3/Common/Defines.h"
 //#include "cryptoTools/Common/Matrix.h"
 #include "Eigen/Dense"
-#include "cryptoTools/Network/Channel.h"
 #include "cryptoTools/Common/Matrix.h"
-
+#include "network/channel_interface.h"
+namespace ph = primihub::link;
 namespace aby3
 {
 
 
         struct CommPkg {
-            oc::Channel mPrev, mNext;
+            ph::Channel mPrev, mNext;
         };
 
         template<typename T>

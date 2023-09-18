@@ -4,7 +4,7 @@ using namespace oc;
 #include  <cryptoTools/Common/Log.h>
 #include <tuple>
 void SharedOT::send(
-	Channel & chl,
+	ph::Channel& chl,
 	span<std::array<i64, 2>> m)
 {
 	if (mIdx == -1)
@@ -28,7 +28,7 @@ void SharedOT::send(
 }
 
 void SharedOT::help(
-	oc::Channel & chl,
+	ph::Channel& chl,
 	const oc::BitVector& choices)
 {
 	if (mIdx == -1)
@@ -59,9 +59,9 @@ void SharedOT::setSeed(const oc::block & seed, oc::u64 seedIdx)
 }
 
 void SharedOT::recv(
-	oc::Channel & sender,
-	oc::Channel & helper,
-	const oc::BitVector & choices,
+	ph::Channel& sender,
+	ph::Channel& helper,
+	const oc::BitVector& choices,
 	oc::span<oc::i64> recvMsgs)
 {
 	std::vector<std::array<i64, 2>> msgs(choices.size());
@@ -84,7 +84,10 @@ void SharedOT::recv(
 	}
 }
 
-std::future<void> SharedOT::asyncRecv(oc::Channel & sender, oc::Channel & helper, oc::BitVector && choices, oc::span<oc::i64> recvMsgs)
+std::future<void> SharedOT::asyncRecv(ph::Channel& sender,
+                                      ph::Channel& helper,
+                                      oc::BitVector&& choices,
+                                      oc::span<oc::i64> recvMsgs)
 {
 	auto m = std::make_shared<
 		std::tuple<
@@ -122,7 +125,8 @@ std::future<void> SharedOT::asyncRecv(oc::Channel & sender, oc::Channel & helper
 			//if (neq(b[0], b[1]))
 			//	throw RTE_LOC;
 
-			//oc::lout << "cb " << sendMsg[0][0] << " " << sendMsg[0][1] << " " << recvMsg[0] << std::endl;
+			// oc::lout << "cb " << sendMsg[0][0] << " " << sendMsg[0][1]
+			//          << " " << recvMsg[0] << std::endl;
 			for (u64 i = 0; i < sendMsg.size(); ++i)
 			{
 				recvMsgs[i] = sendMsg[i][choices[i]] ^ recvMsg[i];
@@ -134,9 +138,10 @@ std::future<void> SharedOT::asyncRecv(oc::Channel & sender, oc::Channel & helper
 
 
 	//block b0, b1;
-
-	sender.asyncRecv(d0, choices.size(), cb);
-	helper.asyncRecv(d1, choices.size(), cb);
+  sender.asyncRecv(d0, choices.size()).get();
+  cb();
+  helper.asyncRecv(d1, choices.size()).get();
+  cb();
 
 	return ret;
 }

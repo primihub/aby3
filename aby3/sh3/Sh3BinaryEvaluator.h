@@ -8,7 +8,8 @@
 #include "Sh3ShareGen.h"
 #include <boost/align/aligned_allocator.hpp>
 #include <vector>
-
+#include "network/status.h"
+namespace ph_link = primihub::link;
 namespace aby3
 {
 
@@ -66,7 +67,7 @@ namespace aby3
         std::vector<u8> mRecvData;
         std::array<std::vector<u8>, 2> mSendBuffs;
 
-        std::vector<std::future<void>> mRecvFutr;
+        std::vector<std::future<ph_link::Status>> mRecvFutr;
         sPackedBinBase<block_type> mMem;
 
 

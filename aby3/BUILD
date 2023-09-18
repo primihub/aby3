@@ -24,6 +24,8 @@ cc_library(
     ":common_lib",
     "@ladnir_cryptoTools//:libcryptoTools",
     "@com_github_microsoft_gsl//:gsl_lib",
+    "@ph_communication//network:channel_interface",
+    "@com_github_glog_glog//:glog",
   ],
 )
 
@@ -37,6 +39,8 @@ cc_library(
   ]),
   deps = [
      "@ladnir_cryptoTools//:libcryptoTools",
+     "@com_github_glog_glog//:glog",
+
   ],
 )
 
@@ -53,6 +57,8 @@ cc_library(
   ],
   deps = [
     "@ladnir_cryptoTools//:libcryptoTools",
+    "@ph_communication//network:channel_interface",
+    "@com_github_glog_glog//:glog",
   ],
 )
 
@@ -71,6 +77,7 @@ cc_library(
     ":circuit_lib",
     "@eigen//:eigen",
     "@lib_function2//:function2",
-    "@osu_libote//:libOTe"
+    "@osu_libote//:libOTe",
+    "@com_github_glog_glog//:glog",
   ],
 )
