@@ -16,10 +16,9 @@
 
 #include "aby3/Circuit/kogge_stone.h"
 #include "cryptoTools/Crypto/RandomOracle.h"
-// #include <glog/logging.h>
+#include <glog/logging.h>
 #include <cmath>
 #include <string>
-#define VLOG(level) std::cout
 namespace aby3 {
 
 namespace {
